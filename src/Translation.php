@@ -186,8 +186,8 @@ class Translation implements TranslationInterface
      */
     public function getLocale()
     {
-        if ($this->request->hasCookie('locale')) {
-            return $this->request->cookie('locale');
+        if ($this->request->session()->has('locale')) {
+            return $this->request->session()->get('locale');
         } else {
             return $this->getConfigDefaultLocale();
         }
@@ -198,7 +198,8 @@ class Translation implements TranslationInterface
      */
     public function setLocale($code = '')
     {
-        $this->locale = $code;
+       $this->locale = $code;
+        session(['locale' => $this->locale]);
     }
 
     /**
